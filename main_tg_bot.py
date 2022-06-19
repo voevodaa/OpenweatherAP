@@ -1,5 +1,7 @@
 import requests
 import datetime
+
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from config import tg_bot_token, open_weather_token
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
@@ -9,10 +11,13 @@ from aiogram.utils import executor
 bot = Bot(token=tg_bot_token)
 dp = Dispatcher(bot)
 
+weather_city = KeyboardButton('Тамбов')
+greet_kb = ReplyKeyboardMarkup(resize_keyboard=True).add(weather_city)
+
 
 @dp.message_handler(commands=['start'])
 async def start_command(message: types.Message):
-    await message.reply('Привет!')
+    await message.reply('Привет!', reply_markup = greet_kb)
 
 
 @dp.message_handler()
